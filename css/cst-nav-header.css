@@ -1,4 +1,5 @@
 :host {
+    display: block;
     background-color: var(--bg-base, #242f2f);
     color: var(--main-text, white);
 }
