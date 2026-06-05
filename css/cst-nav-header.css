@@ -1,11 +1,11 @@
 :host {
-    --cst-default-bg-base: #FAF7F2;
-    --cst-default-bg-header: #F0EBE1;
-    --cst-default-main-text: #43382F;
-    --cst-default-sub-text: #8B7E74;
-    --cst-default-main-btn: #D97706;
-    --cst-default-accent: #EA580C;
-    
+    --cst-default-bg-base: #FFF5E1;
+    --cst-default-bg-header: #FFE4C4;
+    --cst-default-main-text: #5C3A21;
+    --cst-default-sub-text: #8B6D5C;
+    --cst-default-main-btn: #D2691E;
+    --cst-default-accent: #FF7F50;
+
     display: block;
     background-color: var(--bg-base, var(--cst-default-bg-base));
     color: var(--main-text, var(--cst-default-main-text));
