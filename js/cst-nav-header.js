@@ -26,10 +26,20 @@ export class CstNavHeader extends HTMLElement {
         const isTopPage = path.endsWith('/') || path.endsWith('/index.html');
 
         let titleHtml = "";
-
+        let backHtml = "";
         if (isTopPage) {
             titleHtml = titleText;
         } else {
+            backHtml = `
+                <button id="smartBackBtn" class="back-button">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span class="back-text">戻る</span>
+                </button>
+            `;
             titleHtml = `${toolName} - <a href="./" class="header-inline-brand-link" title="トップページへ戻る">${titleText}</a>`
         }
 
@@ -38,6 +48,7 @@ export class CstNavHeader extends HTMLElement {
             <link rel="stylesheet" href="${cssUrl}">
             
             <header>
+                ${backHtml}
                 <h1>${titleHtml}</h1>
                 <a href="google.com" class="contact-icon" title="お問い合わせ" >
                     <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"
