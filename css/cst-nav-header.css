@@ -1,12 +1,11 @@
-:root{
+:host {
     --cst-default-bg-base: #FAF7F2;
     --cst-default-bg-header: #F0EBE1;
     --cst-default-main-text: #43382F;
     --cst-default-sub-text: #8B7E74;
     --cst-default-main-btn: #D97706;
     --cst-default-accent: #EA580C;
-}
-:host {
+    
     display: block;
     background-color: var(--bg-base, var(--cst-default-bg-base));
     color: var(--main-text, var(--cst-default-main-text));
