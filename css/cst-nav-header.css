@@ -84,3 +84,21 @@ header h1 {
 .back-button:hover {
     color: var(--main-text);
 }
+
+@media (max-width: 768px) {
+    .back-text {
+        display: none;
+    }
+    .header h1 {
+        font-size: 1.0rem;
+        padding: 0 60px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    .header-inline-brand-link {
+        display: none;
+    }
+}

@@ -16,6 +16,7 @@ export class CstNavHeader extends HTMLElement {
         // 親のHTMLから title="..." で渡された値を受け取る（なければデフォルト値）
         const titleText = this.getAttribute('title') || 'MySites';
         const toolName = this.getAttribute('toolName') || 'Tools';
+        const contactPath = this.getAttribute('contactPath') || 'contact.html';
 
         // 自分が置かれている場所を基準に、CSSの絶対URLを自動計算する
         const cssUrl = new URL('../css/cst-nav-header.css', import.meta.url).href;
@@ -31,14 +32,14 @@ export class CstNavHeader extends HTMLElement {
             titleHtml = titleText;
         } else {
             backHtml = `
-                <button id="smartBackBtn" class="back-button">
+                <a href="./" id="smartBackBtn" class="back-button">
                     <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
                         <polyline points="12 19 5 12 12 5"></polyline>
                     </svg>
                     <span class="back-text">戻る</span>
-                </button>
+                </a>
             `;
             titleHtml = `${toolName} - <a href="./" class="header-inline-brand-link" title="トップページへ戻る">${titleText}</a>`
         }
@@ -50,7 +51,7 @@ export class CstNavHeader extends HTMLElement {
             <header>
                 ${backHtml}
                 <h1>${titleHtml}</h1>
-                <a href="google.com" class="contact-icon" title="お問い合わせ" >
+                <a href="${contactPath}" class="contact-icon" title="お問い合わせ" >
                     <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -59,6 +60,33 @@ export class CstNavHeader extends HTMLElement {
                 </a>
             </header>
         `;
+
+        const backBtn = this.shadowRoot.getElementById('smartBackBtn');
+        if (backBtn) {
+            backBtn.addEventListener('click', (e) => {
+                // <a>タグのデフォルトの動き（href="./"への遷移）を一旦キャンセル
+                e.preventDefault();
+
+                const isContactPage = window.location.pathname.endsWith('contact.html');
+
+                if (isContactPage) {
+                    // お問い合わせページの場合
+                    if (window.history.length > 1) {
+                        window.history.back(); // 履歴があれば1つ戻る
+                    } else {
+                        window.location.href = "./"; // 履歴がなければトップへ
+                    }
+                } else {
+                    // 通常のツールページの場合
+                    // 履歴があり、かつ「自分のサイト内」からの遷移であれば戻る
+                    if (window.history.length > 1 && document.referrer.includes(window.location.host)) {
+                        window.history.back();
+                    } else {
+                        window.location.href = "./"; // ブックマーク等から直接来た場合はトップへ
+                    }
+                }
+            });
+        }
     }
 }
 
